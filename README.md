@@ -1,8 +1,10 @@
-# Reorder the options and a Jev clone changes its answer (on default settings)
+# Reorder the options and a Jev clone changed its answer (on its previous default)
 
 ![Chosen tier per message and option order, for four jevmlx settings and hosted Jev. A row that changes colour is an answer that depends on option order.](figure/answers_by_order.png)
 
-I listed the same three options in three different orders and asked the same six questions. On its default settings, jevmlx, an open-source clone of the Jev interface, changed its answer on 5 of 6 messages, and 14 of its 18 answers were whichever option happened to be listed second. Its built-in prior correction made that worse. Switching its scoring mode made it order-stable. Hosted Jev didn't move at all.
+> Update, 20 Sep 2026: a few hours after these runs, jevmlx switched its default scorer from `slots` to `labels` ([PR #103](https://github.com/bnsd55/jevmlx/pull/103), commit `00c21fc`), citing its own measurements on a 7B model, including order any-flip 0.16 (slots) vs 0.03 (labels). Everything below was measured at `bcdb12c`, when `slots` was still the default. Follow-up on `labels` + `prior_correction`: [issue #105](https://github.com/bnsd55/jevmlx/issues/105).
+
+I listed the same three options in three different orders and asked the same six questions. On its default settings at the time, jevmlx, an open-source clone of the Jev interface, changed its answer on 5 of 6 messages, and 14 of its 18 answers were whichever option happened to be listed second. Its built-in prior correction made that worse. Switching its scoring mode made it order-stable. Hosted Jev didn't move at all.
 
 ## Background
 
