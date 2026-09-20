@@ -98,9 +98,10 @@ ORDERS = {
 }
 
 
-def measurement_1_permutation():
+def measurement_1_permutation(scoring: str = "slots", prior_correction: bool = False):
     print("=" * 100)
     print("MEASUREMENT 1: does risk_tier track enum POSITION in the prompt?")
+    print(f"settings: scoring={scoring} prior_correction={prior_correction}")
     print("=" * 100)
     header = f"{'case':<24}" + "".join(f"{name:<26}" for name in ORDERS)
     print(header)
@@ -108,7 +109,10 @@ def measurement_1_permutation():
         row = f"{case_name:<24}"
         for order_name, order in ORDERS.items():
             model_cls = make_model(order)
-            d = jevmlx.decide(model_cls, ctx, model=MODEL)
+            d = jevmlx.decide(
+                model_cls, ctx, model=MODEL,
+                scoring=scoring, prior_correction=prior_correction,
+            )
             fr = d.fields["risk_tier"]
             cell = f"{fr.value}(m={fr.log_score_margin:.3f})"
             row += f"{cell:<26}"
@@ -252,4 +256,12 @@ if __name__ == "__main__":
     import mlx_lm  # noqa: E402
     print(f"jevmlx source: {commit}")
     print(f"model: {MODEL}  mlx: {mx.__version__}  mlx_lm: {mlx_lm.__version__}")
-    measurement_1_permutation()
+    import argparse  # noqa: E402
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--scoring", choices=["slots", "labels"], default="slots",
+                    help="jevmlx scoring mode (default slots, the library default)")
+    ap.add_argument("--prior-correction", action="store_true",
+                    help="subtract jevmlx's neutral-context prior before choosing")
+    args = ap.parse_args()
+    measurement_1_permutation(args.scoring, args.prior_correction)
