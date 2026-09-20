@@ -1,0 +1,273 @@
+{
+  "endpoint": "https://api.typesafe.ai/v1/systemone",
+  "model": "jev-latest",
+  "started_utc": "2026-09-20T14:47:08.067132+00:00",
+  "orders": {
+    "orig_low_med_high": [
+      "low",
+      "medium",
+      "high"
+    ],
+    "reversed_high_med_low": [
+      "high",
+      "medium",
+      "low"
+    ],
+    "rotated_med_high_low": [
+      "medium",
+      "high",
+      "low"
+    ]
+  },
+  "tier_descriptions": {
+    "low": "Low risk: no red flags, safe to proceed as normal.",
+    "medium": "Some risk indicators present, needs human review before acting.",
+    "high": "Clear risk indicators: likely fraudulent, malicious, or urgent harm."
+  },
+  "passes": {
+    "pass_1": {
+      "clear_high_risk_scam": {
+        "orig_low_med_high": {
+          "risk_tier_choice": "high",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.99,
+          "response_model": "jev-1.13.0"
+        },
+        "reversed_high_med_low": {
+          "risk_tier_choice": "high",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.99,
+          "response_model": "jev-1.13.0"
+        },
+        "rotated_med_high_low": {
+          "risk_tier_choice": "high",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.99,
+          "response_model": "jev-1.13.0"
+        }
+      },
+      "benign_smalltalk": {
+        "orig_low_med_high": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.02,
+          "response_model": "jev-1.13.0"
+        },
+        "reversed_high_med_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 0.99,
+          "is_risky": 0.02,
+          "response_model": "jev-1.13.0"
+        },
+        "rotated_med_high_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 0.99,
+          "is_risky": 0.02,
+          "response_model": "jev-1.13.0"
+        }
+      },
+      "ambiguous_urgent": {
+        "orig_low_med_high": {
+          "risk_tier_choice": "high",
+          "risk_tier_confidence": 0.75,
+          "is_risky": 0.9,
+          "response_model": "jev-1.13.0"
+        },
+        "reversed_high_med_low": {
+          "risk_tier_choice": "high",
+          "risk_tier_confidence": 0.88,
+          "is_risky": 0.91,
+          "response_model": "jev-1.13.0"
+        },
+        "rotated_med_high_low": {
+          "risk_tier_choice": "high",
+          "risk_tier_confidence": 0.84,
+          "is_risky": 0.89,
+          "response_model": "jev-1.13.0"
+        }
+      },
+      "technical_neutral": {
+        "orig_low_med_high": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.02,
+          "response_model": "jev-1.13.0"
+        },
+        "reversed_high_med_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.02,
+          "response_model": "jev-1.13.0"
+        },
+        "rotated_med_high_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.02,
+          "response_model": "jev-1.13.0"
+        }
+      },
+      "mild_concern": {
+        "orig_low_med_high": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 0.6,
+          "is_risky": 0.3,
+          "response_model": "jev-1.13.0"
+        },
+        "reversed_high_med_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 0.46,
+          "is_risky": 0.29,
+          "response_model": "jev-1.13.0"
+        },
+        "rotated_med_high_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 0.5,
+          "is_risky": 0.3,
+          "response_model": "jev-1.13.0"
+        }
+      },
+      "empty_string": {
+        "orig_low_med_high": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.09,
+          "response_model": "jev-1.13.0"
+        },
+        "reversed_high_med_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 0.99,
+          "is_risky": 0.09,
+          "response_model": "jev-1.13.0"
+        },
+        "rotated_med_high_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.09,
+          "response_model": "jev-1.13.0"
+        }
+      }
+    },
+    "pass_2": {
+      "clear_high_risk_scam": {
+        "orig_low_med_high": {
+          "risk_tier_choice": "high",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.99,
+          "response_model": "jev-1.13.0"
+        },
+        "reversed_high_med_low": {
+          "risk_tier_choice": "high",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.99,
+          "response_model": "jev-1.13.0"
+        },
+        "rotated_med_high_low": {
+          "risk_tier_choice": "high",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.99,
+          "response_model": "jev-1.13.0"
+        }
+      },
+      "benign_smalltalk": {
+        "orig_low_med_high": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.02,
+          "response_model": "jev-1.13.0"
+        },
+        "reversed_high_med_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 0.99,
+          "is_risky": 0.02,
+          "response_model": "jev-1.13.0"
+        },
+        "rotated_med_high_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 0.99,
+          "is_risky": 0.02,
+          "response_model": "jev-1.13.0"
+        }
+      },
+      "ambiguous_urgent": {
+        "orig_low_med_high": {
+          "risk_tier_choice": "high",
+          "risk_tier_confidence": 0.71,
+          "is_risky": 0.9,
+          "response_model": "jev-1.13.0"
+        },
+        "reversed_high_med_low": {
+          "risk_tier_choice": "high",
+          "risk_tier_confidence": 0.87,
+          "is_risky": 0.91,
+          "response_model": "jev-1.13.0"
+        },
+        "rotated_med_high_low": {
+          "risk_tier_choice": "high",
+          "risk_tier_confidence": 0.87,
+          "is_risky": 0.9,
+          "response_model": "jev-1.13.0"
+        }
+      },
+      "technical_neutral": {
+        "orig_low_med_high": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.02,
+          "response_model": "jev-1.13.0"
+        },
+        "reversed_high_med_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.02,
+          "response_model": "jev-1.13.0"
+        },
+        "rotated_med_high_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.02,
+          "response_model": "jev-1.13.0"
+        }
+      },
+      "mild_concern": {
+        "orig_low_med_high": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 0.67,
+          "is_risky": 0.29,
+          "response_model": "jev-1.13.0"
+        },
+        "reversed_high_med_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 0.54,
+          "is_risky": 0.25,
+          "response_model": "jev-1.13.0"
+        },
+        "rotated_med_high_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 0.56,
+          "is_risky": 0.3,
+          "response_model": "jev-1.13.0"
+        }
+      },
+      "empty_string": {
+        "orig_low_med_high": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.09,
+          "response_model": "jev-1.13.0"
+        },
+        "reversed_high_med_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 0.99,
+          "is_risky": 0.1,
+          "response_model": "jev-1.13.0"
+        },
+        "rotated_med_high_low": {
+          "risk_tier_choice": "low",
+          "risk_tier_confidence": 1.0,
+          "is_risky": 0.1,
+          "response_model": "jev-1.13.0"
+        }
+      }
+    }
+  }
+}

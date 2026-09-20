@@ -1,0 +1,36 @@
+====================================================================================================
+REAL JEV, pass 1: does risk_tier track option ORDER in the criteria map?
+====================================================================================================
+case                    orig_low_med_high             reversed_high_med_low         rotated_med_high_low          
+clear_high_risk_scam    high(c=1.000)                 high(c=1.000)                 high(c=1.000)                 
+benign_smalltalk        low(c=1.000)                  low(c=0.990)                  low(c=0.990)                  
+ambiguous_urgent        high(c=0.750)                 high(c=0.880)                 high(c=0.840)                 
+technical_neutral       low(c=1.000)                  low(c=1.000)                  low(c=1.000)                  
+mild_concern            low(c=0.600)                  low(c=0.460)                  low(c=0.500)                  
+empty_string            low(c=1.000)                  low(c=0.990)                  low(c=1.000)                  
+
+====================================================================================================
+REAL JEV, pass 2: does risk_tier track option ORDER in the criteria map?
+====================================================================================================
+case                    orig_low_med_high             reversed_high_med_low         rotated_med_high_low          
+clear_high_risk_scam    high(c=1.000)                 high(c=1.000)                 high(c=1.000)                 
+benign_smalltalk        low(c=1.000)                  low(c=0.990)                  low(c=0.990)                  
+ambiguous_urgent        high(c=0.710)                 high(c=0.870)                 high(c=0.870)                 
+technical_neutral       low(c=1.000)                  low(c=1.000)                  low(c=1.000)                  
+mild_concern            low(c=0.670)                  low(c=0.540)                  low(c=0.560)                  
+empty_string            low(c=1.000)                  low(c=0.990)                  low(c=1.000)                  
+
+Same-order repeat control (pass 1 vs pass 2, max |confidence diff|):
+  clear_high_risk_scam    0.0000
+  benign_smalltalk        0.0000
+  ambiguous_urgent        0.0400
+  technical_neutral       0.0000
+  mild_concern            0.0800
+  empty_string            0.0000
+
+Reading this: if the chosen tier stays the same across orderings,
+reordering the criteria map did not change Jev's answer on these
+cases. If same-order repeats are identical but orderings differ in
+confidence, the order reached the model. This says nothing about why.
+
+Raw results written to exp6_results_20260920T144708Z.json
