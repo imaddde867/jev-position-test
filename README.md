@@ -1,6 +1,6 @@
 # Reorder the options and a Jev clone changes its answer (on default settings)
 
-![Shuffle the options. On default settings the clone follows the slot. Jev follows the label.](figure/jev-position-sensitivity.png)
+![Chosen tier per message and option order, for four jevmlx settings and hosted Jev. A row that changes colour is an answer that depends on option order.](figure/answers_by_order.png)
 
 I listed the same three options in three different orders and asked the same six questions. On its default settings, jevmlx, an open-source clone of the Jev interface, changed its answer on 5 of 6 messages, and 14 of its 18 answers were whichever option happened to be listed second. Its built-in prior correction made that worse. Switching its scoring mode made it order-stable. Hosted Jev didn't move at all.
 
@@ -108,6 +108,9 @@ python3 clone_jevmlx_position.py --prior-correction    # other settings: --scori
 pip install requests
 export TYPESAFE_API_KEY=...
 python3 jev_hosted_position.py
+
+# Figure, rebuilt from results/ (needs matplotlib)
+python3 make_figure.py
 ```
 
 To test another constrained-decoding wrapper, keep the six cases and option text, change only the order, and see whether the answer moves.
@@ -115,6 +118,7 @@ To test another constrained-decoding wrapper, keep the six cases and option text
 ## Files
 
 - `clone_jevmlx_position.py`, `jev_hosted_position.py`: the two tests
+- `make_figure.py`: builds `figure/answers_by_order.png` from the raw files in `results/`
 - `results/clone-run-1.txt`, `results/clone-run-2.txt`: clone defaults, two runs (identical)
 - `results/clone-defaults-fresh.txt`: clone defaults again from a clean install of the pinned commit (identical)
 - `results/clone-prior-correction.txt`, `results/clone-labels.txt`, `results/clone-labels-prior.txt`: the other three settings
