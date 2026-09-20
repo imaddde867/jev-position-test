@@ -98,7 +98,10 @@ ORDERS = {
 }
 
 
-def measurement_1_permutation(scoring: str = "slots", prior_correction: bool = False):
+def measurement_1_permutation(scoring: str = "slots", prior_correction: bool = False,
+                              compact: bool = False):
+    if compact:
+        return _compact_table(scoring, prior_correction)
     print("=" * 100)
     print("MEASUREMENT 1: does risk_tier track enum POSITION in the prompt?")
     print(f"settings: scoring={scoring} prior_correction={prior_correction}")
@@ -123,6 +126,22 @@ def measurement_1_permutation(scoring: str = "slots", prior_correction: bool = F
     print("not a semantic 'medium' prior. If it stays semantically the same")
     print("regardless of where it sits, position is cleared.")
     print()
+
+
+def _compact_table(scoring: str, prior_correction: bool):
+    """Same decisions as the full table, narrower layout (2-decimal margins)."""
+    print(f"scoring={scoring}  prior_correction={prior_correction}")
+    print("option order ->        " + "".join(f"{','.join(o).replace('medium', 'med'):<16}" for o in ORDERS.values()))
+    for case_name, ctx in CASES.items():
+        row = f"{case_name:<23}"
+        for order in ORDERS.values():
+            d = jevmlx.decide(
+                make_model(order), ctx, model=MODEL,
+                scoring=scoring, prior_correction=prior_correction,
+            )
+            fr = d.fields["risk_tier"]
+            row += f"{fr.value + f'(m={fr.log_score_margin:.2f})':<16}"
+        print(row)
 
 
 def run_naive_with_logprobs(engine, schema, context: str, max_tokens: int = 300):
@@ -254,8 +273,6 @@ if __name__ == "__main__":
     except PackageNotFoundError:
         pass
     import mlx_lm  # noqa: E402
-    print(f"jevmlx source: {commit}")
-    print(f"model: {MODEL}  mlx: {mx.__version__}  mlx_lm: {mlx_lm.__version__}")
     import argparse  # noqa: E402
 
     ap = argparse.ArgumentParser()
@@ -263,5 +280,12 @@ if __name__ == "__main__":
                     help="jevmlx scoring mode (default slots, the library default)")
     ap.add_argument("--prior-correction", action="store_true",
                     help="subtract jevmlx's neutral-context prior before choosing")
+    ap.add_argument("--compact", action="store_true",
+                    help="narrower output (same decisions, 2-decimal margins)")
     args = ap.parse_args()
-    measurement_1_permutation(args.scoring, args.prior_correction)
+    if args.compact:
+        print(f"jevmlx {commit[:7]}  {MODEL.split('/')[-1]}  mlx {mx.__version__}")
+    else:
+        print(f"jevmlx source: {commit}")
+        print(f"model: {MODEL}  mlx: {mx.__version__}  mlx_lm: {mlx_lm.__version__}")
+    measurement_1_permutation(args.scoring, args.prior_correction, args.compact)
