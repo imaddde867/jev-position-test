@@ -18,6 +18,8 @@ I asked a local Jev clone the same six questions with the same three options, an
 
 > **Update, 20 Sep 2026:** a few hours after these runs, jevmlx switched its default to `labels` ([PR #103](https://github.com/bnsd55/jevmlx/pull/103)), citing its own measurement on a 7B model: order flips 0.16 with slots vs 0.03 with labels. Follow-up on `labels` + `prior_correction`: [issue #105](https://github.com/bnsd55/jevmlx/issues/105).
 
+> **Rerun, 3 Oct 2026:** hosted Jev again (`jev-latest`, which still reports `jev-1.13.0`), same six messages and three orders, two passes, 36 calls. 0 of 6 answers changed with option order and every label matched the 20 Sep run. Confidence still moves a little with order (`ambiguous_urgent` 0.73 to 0.85, `mild_concern` 0.50 to 0.68). Raw output: `results/exp6_results_20261003T154421Z.json`. The alias does not pin a version, so this says nothing about other versions.
+
 ## Try it on your own wrapper
 
 Keep your options and their descriptions identical, change only the order, rerun, and see if the answer moves. Ten minutes. Then try your tool's own settings, because the one that sounds like the fix (`prior_correction` here) wasn't.
@@ -158,6 +160,7 @@ python3 make_figure.py
 - `results/clone-defaults-fresh.txt`: clone defaults again from a clean install of the pinned commit (identical)
 - `results/clone-prior-correction.txt`, `results/clone-labels.txt`, `results/clone-labels-prior.txt`: the other three settings
 - `results/jev-run.txt`, `results/exp6_results_20260920T144708Z.json`: raw Jev output, both passes
+- `results/exp6_results_20261003T154421Z.json`: raw output of the 3 Oct 2026 hosted rerun, both passes
 
 </details>
 
