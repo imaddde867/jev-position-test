@@ -1,0 +1,19 @@
+jevmlx source: a68ee5987a44b83458a6697604ec50caecf3ecb7
+model: mlx-community/Qwen2.5-1.5B-Instruct-4bit  mlx: 0.32.4  mlx_lm: 0.32.2
+====================================================================================================
+MEASUREMENT 1: does risk_tier track enum POSITION in the prompt?
+settings: scoring=labels prior_correction=True
+====================================================================================================
+case                    orig_low_med_high         reversed_high_med_low     rotated_med_high_low      
+clear_high_risk_scam    high(m=3.922)             high(m=2.625)             high(m=4.125)             
+benign_smalltalk        low(m=0.672)              low(m=0.719)              low(m=0.359)              
+ambiguous_urgent        high(m=0.531)             high(m=0.406)             high(m=1.062)             
+technical_neutral       low(m=2.000)              low(m=2.516)              low(m=2.359)              
+mild_concern            medium(m=0.484)           medium(m=0.297)           high(m=0.641)             
+empty_string            medium(m=0.641)           medium(m=1.000)           medium(m=0.078)           
+
+Reading this: if the CHOSEN value changes with the option's slot
+position (not its meaning) across columns, that's position bias,
+not a semantic 'medium' prior. If it stays semantically the same
+regardless of where it sits, position is cleared.
+

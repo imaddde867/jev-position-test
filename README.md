@@ -11,14 +11,25 @@ I asked a local Jev clone the same six questions with the same three options, an
 | setup | messages whose answer changed with option order |
 |---|---|
 | jevmlx, `slots` scoring (default at the time) | **5 of 6** (14 of 18 answers were simply the option listed second) |
-| jevmlx, `slots` + `prior_correction` | **6 of 6** (the fix made it worse) |
+| jevmlx, `slots` + `prior_correction` | **6 of 6** (turning it on made things worse) |
 | jevmlx, `labels` scoring | **0 of 6** (but rated an empty message "high risk" every time) |
 | jevmlx, `labels` + `prior_correction` | **2 of 6** |
 | Hosted Jev (`jev-1.13.0`), two passes | **0 of 6** |
 
 > **Update, 20 Sep 2026:** a few hours after these runs, jevmlx switched its default to `labels` ([PR #103](https://github.com/bnsd55/jevmlx/pull/103)), citing its own measurement on a 7B model: order flips 0.16 with slots vs 0.03 with labels. Follow-up on `labels` + `prior_correction`: [issue #105](https://github.com/bnsd55/jevmlx/issues/105).
 
-> **Rerun, 3 Oct 2026:** hosted Jev again (`jev-latest`, which still reports `jev-1.13.0`), same six messages and three orders, two passes, 36 calls. 0 of 6 answers changed with option order and every label matched the 20 Sep run. Confidence still moves a little with order (`ambiguous_urgent` 0.73 to 0.85, `mild_concern` 0.50 to 0.68). Raw output: `results/exp6_results_20261003T154421Z.json`. The alias does not pin a version, so this says nothing about other versions.
+**Hosted rerun, 3 October 2026:** the [saved result](results/exp6_results_20261003T154421Z.json) contains two passes over the same six cases and three option orders (36 responses). No case changes its chosen tier across orders in either pass; responses identify `jev-1.13.0`. This repeats the hosted observation on this small test set, not a general accuracy or calibration result.
+
+**Fixed upstream, 21 September 2026:** [PR #118](https://github.com/bnsd55/openjev/pull/118) made `prior_correction` compute one order-invariant prior and apply it by option name. Rerunning all four settings at `a68ee59`, same machine and model:
+
+| setting | before (`bcdb12c`) | after (`a68ee59`) |
+|---|---|---|
+| `slots` | 5 of 6 | 5 of 6 |
+| `slots` + `prior_correction` | 6 of 6 | 3 of 6 |
+| `labels` | 0 of 6 | 0 of 6 |
+| `labels` + `prior_correction` | 2 of 6 | 1 of 6 |
+
+The remaining flips are in the evidence pass, not the prior. In `slots` mode the corrected prior now leans toward `medium` — a normal sensor reading is `medium` in two of three orders — so order bias is smaller, but the setting still isn't safe. Raw runs: `results/clone-fix-*.txt`.
 
 ## Try it on your own wrapper
 
@@ -82,6 +93,8 @@ The clone gives no warning. `benign_smalltalk` lands on `high` with a log-score 
 <details>
 <summary><b>jevmlx's other settings</b></summary>
 
+Measured at `bcdb12c`, before PR #118.
+
 | setting | cases that change with order | answers in slot 1 / 2 / 3 |
 |---|---|---|
 | `slots` (default at the time) | 5 / 6 | 1 / 14 / 3 |
@@ -111,7 +124,7 @@ Each ordering was sent twice, because JSON objects are unordered by spec and Typ
 
 36 of 36 answers keep the same label.
 
-The ordering does reach the model. Confidence moves with order more than between identical requests: `ambiguous_urgent` spreads 0.13 to 0.16 across orderings against at most 0.04 between repeats, and is lowest in the original ordering both times. `benign_smalltalk` and `empty_string` repeat exactly yet still differ by 0.01 between orderings. `mild_concern` is the noisiest (0.08 between repeats, 0.13 to 0.14 across orderings). Jev also isn't deterministic: identical requests came back up to 0.08 apart.
+Confidence varies across option orders, but the hosted responses alone do not establish how the server constructs model inputs. In this run, confidence moves with order more than between identical requests: `ambiguous_urgent` spreads 0.13 to 0.16 across orderings against at most 0.04 between repeats, and is lowest in the original ordering both times. `benign_smalltalk` and `empty_string` repeat exactly yet still differ by 0.01 between orderings. `mild_concern` is the noisiest (0.08 between repeats, 0.13 to 0.14 across orderings). Jev also isn't deterministic: identical requests came back up to 0.08 apart.
 
 </details>
 
@@ -159,6 +172,7 @@ python3 make_figure.py
 - `results/clone-run-1.txt`, `results/clone-run-2.txt`: clone defaults, two runs (identical)
 - `results/clone-defaults-fresh.txt`: clone defaults again from a clean install of the pinned commit (identical)
 - `results/clone-prior-correction.txt`, `results/clone-labels.txt`, `results/clone-labels-prior.txt`: the other three settings
+- `results/clone-fix-*.txt`: all four settings rerun at `a68ee59`, after PR #118
 - `results/jev-run.txt`, `results/exp6_results_20260920T144708Z.json`: raw Jev output, both passes
 - `results/exp6_results_20261003T154421Z.json`: raw output of the 3 Oct 2026 hosted rerun, both passes
 

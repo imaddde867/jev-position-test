@@ -15,7 +15,7 @@ bcdb12c. jevmlx later switched its library default to "labels" (PR #103).
 """
 
 import json
-from importlib.metadata import PackageNotFoundError, distribution
+from importlib.metadata import PackageNotFoundError, distribution, version as pkg_version
 from typing import Literal
 
 import mlx.core as mx
@@ -152,9 +152,10 @@ if __name__ == "__main__":
     ap.add_argument("--compact", action="store_true",
                     help="narrower output (same decisions, 2-decimal margins)")
     args = ap.parse_args()
+    mlx_version = pkg_version("mlx")
     if args.compact:
-        print(f"jevmlx {commit[:7]}  {MODEL.split('/')[-1]}  mlx {mx.__version__}")
+        print(f"jevmlx {commit[:7]}  {MODEL.split('/')[-1]}  mlx {mlx_version}")
     else:
         print(f"jevmlx source: {commit}")
-        print(f"model: {MODEL}  mlx: {mx.__version__}  mlx_lm: {mlx_lm.__version__}")
+        print(f"model: {MODEL}  mlx: {mlx_version}  mlx_lm: {mlx_lm.__version__}")
     measurement_1_permutation(args.scoring, args.prior_correction, args.compact)
